@@ -1,0 +1,17 @@
+server:
+  port: 8080
+
+spring:
+  application:
+    name: gym-management-backend
+  datasource:
+    url: jdbc:postgresql://localhost:5432/${CHANGE_ME_DB:gym_management}
+    username: ${CHANGE_ME_USER:postgres}
+    password: ${CHANGE_ME_PASS:your_password}
+  jpa:
+    show-sql: true
+    hibernate:
+      ddl-auto: none
+    properties:
+      hibernate:
+        dialect: org.hibernate.dialect.PostgreSQLDialect
