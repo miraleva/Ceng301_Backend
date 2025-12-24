@@ -1,17 +1,19 @@
 package com.miraleva.ceng301.service;
 
-import com.miraleva.ceng301.dto.PaymentDto;
+import com.miraleva.ceng301.dto.PaymentResponse;
+import com.miraleva.ceng301.dto.PaymentCreateRequest;
+import com.miraleva.ceng301.dto.PaymentUpdateRequest;
 import java.util.List;
 import java.util.Optional;
 
 public interface PaymentService {
-    List<PaymentDto> findAll();
+    List<PaymentResponse> findAll();
 
-    Optional<PaymentDto> findById(Long id);
+    Optional<PaymentResponse> findById(Integer id);
 
-    PaymentDto create(PaymentDto paymentDto);
+    PaymentResponse create(PaymentCreateRequest request);
 
-    PaymentDto update(Long id, PaymentDto paymentDto);
+    PaymentResponse update(Integer id, PaymentUpdateRequest request);
 
-    void delete(Long id);
+    void delete(Integer id);
 }

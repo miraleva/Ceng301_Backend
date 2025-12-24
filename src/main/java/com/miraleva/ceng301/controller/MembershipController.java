@@ -1,7 +1,9 @@
 package com.miraleva.ceng301.controller;
 
 import com.miraleva.ceng301.dto.ApiResponse;
-import com.miraleva.ceng301.dto.MembershipDto;
+import com.miraleva.ceng301.dto.MembershipResponse;
+import com.miraleva.ceng301.dto.MembershipCreateRequest;
+import com.miraleva.ceng301.dto.MembershipUpdateRequest;
 import com.miraleva.ceng301.service.MembershipService;
 import org.springframework.web.bind.annotation.*;
 
@@ -18,27 +20,28 @@ public class MembershipController {
     }
 
     @GetMapping
-    public ApiResponse<List<MembershipDto>> getAll() {
+    public ApiResponse<List<MembershipResponse>> getAll() {
         return ApiResponse.success("Fetched successfully", membershipService.findAll());
     }
 
     @GetMapping("/{id}")
-    public ApiResponse<MembershipDto> getById(@PathVariable Long id) {
+    public ApiResponse<MembershipResponse> getById(@PathVariable Integer id) {
         return ApiResponse.success("Fetched successfully", membershipService.findById(id).orElse(null));
     }
 
     @PostMapping
-    public ApiResponse<MembershipDto> create(@RequestBody MembershipDto membershipDto) {
-        return ApiResponse.success("Created successfully", membershipService.create(membershipDto));
+    public ApiResponse<MembershipResponse> create(@RequestBody MembershipCreateRequest request) {
+        return ApiResponse.success("Created successfully", membershipService.create(request));
     }
 
     @PutMapping("/{id}")
-    public ApiResponse<MembershipDto> update(@PathVariable Long id, @RequestBody MembershipDto membershipDto) {
-        return ApiResponse.success("Updated successfully", membershipService.update(id, membershipDto));
+    public ApiResponse<MembershipResponse> update(@PathVariable Integer id,
+            @RequestBody MembershipUpdateRequest request) {
+        return ApiResponse.success("Updated successfully", membershipService.update(id, request));
     }
 
     @DeleteMapping("/{id}")
-    public ApiResponse<Void> delete(@PathVariable Long id) {
+    public ApiResponse<Void> delete(@PathVariable Integer id) {
         membershipService.delete(id);
         return ApiResponse.success("Deleted successfully", null);
     }

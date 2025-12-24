@@ -1,17 +1,19 @@
 package com.miraleva.ceng301.service;
 
-import com.miraleva.ceng301.dto.ClassDto;
+import com.miraleva.ceng301.dto.ClassResponse;
+import com.miraleva.ceng301.dto.ClassCreateRequest;
+import com.miraleva.ceng301.dto.ClassUpdateRequest;
 import java.util.List;
 import java.util.Optional;
 
 public interface ClassService {
-    List<ClassDto> findAll();
+    List<ClassResponse> findAll();
 
-    Optional<ClassDto> findById(Long id);
+    Optional<ClassResponse> findById(Integer id);
 
-    ClassDto create(ClassDto classDto);
+    ClassResponse create(ClassCreateRequest request);
 
-    ClassDto update(Long id, ClassDto classDto);
+    ClassResponse update(Integer id, ClassUpdateRequest request);
 
-    void delete(Long id);
+    void delete(Integer id);
 }

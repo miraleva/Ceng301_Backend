@@ -1,17 +1,19 @@
 package com.miraleva.ceng301.service;
 
-import com.miraleva.ceng301.dto.TrainerDto;
+import com.miraleva.ceng301.dto.TrainerResponse;
+import com.miraleva.ceng301.dto.TrainerCreateRequest;
+import com.miraleva.ceng301.dto.TrainerUpdateRequest;
 import java.util.List;
 import java.util.Optional;
 
 public interface TrainerService {
-    List<TrainerDto> findAll();
+    List<TrainerResponse> findAll();
 
-    Optional<TrainerDto> findById(Long id);
+    Optional<TrainerResponse> findById(Integer id);
 
-    TrainerDto create(TrainerDto trainerDto);
+    TrainerResponse create(TrainerCreateRequest request);
 
-    TrainerDto update(Long id, TrainerDto trainerDto);
+    TrainerResponse update(Integer id, TrainerUpdateRequest request);
 
-    void delete(Long id);
+    void delete(Integer id);
 }

@@ -1,17 +1,19 @@
 package com.miraleva.ceng301.service;
 
-import com.miraleva.ceng301.dto.MembershipDto;
+import com.miraleva.ceng301.dto.MembershipResponse;
+import com.miraleva.ceng301.dto.MembershipCreateRequest;
+import com.miraleva.ceng301.dto.MembershipUpdateRequest;
 import java.util.List;
 import java.util.Optional;
 
 public interface MembershipService {
-    List<MembershipDto> findAll();
+    List<MembershipResponse> findAll();
 
-    Optional<MembershipDto> findById(Long id);
+    Optional<MembershipResponse> findById(Integer id);
 
-    MembershipDto create(MembershipDto membershipDto);
+    MembershipResponse create(MembershipCreateRequest request);
 
-    MembershipDto update(Long id, MembershipDto membershipDto);
+    MembershipResponse update(Integer id, MembershipUpdateRequest request);
 
-    void delete(Long id);
+    void delete(Integer id);
 }

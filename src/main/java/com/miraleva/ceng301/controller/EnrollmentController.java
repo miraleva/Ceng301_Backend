@@ -1,7 +1,9 @@
 package com.miraleva.ceng301.controller;
 
 import com.miraleva.ceng301.dto.ApiResponse;
-import com.miraleva.ceng301.dto.EnrollmentDto;
+import com.miraleva.ceng301.dto.EnrollmentResponse;
+import com.miraleva.ceng301.dto.EnrollmentCreateRequest;
+import com.miraleva.ceng301.dto.EnrollmentUpdateRequest;
 import com.miraleva.ceng301.service.EnrollmentService;
 import org.springframework.web.bind.annotation.*;
 
@@ -18,27 +20,28 @@ public class EnrollmentController {
     }
 
     @GetMapping
-    public ApiResponse<List<EnrollmentDto>> getAll() {
+    public ApiResponse<List<EnrollmentResponse>> getAll() {
         return ApiResponse.success("Fetched successfully", enrollmentService.findAll());
     }
 
     @GetMapping("/{id}")
-    public ApiResponse<EnrollmentDto> getById(@PathVariable Long id) {
+    public ApiResponse<EnrollmentResponse> getById(@PathVariable Integer id) {
         return ApiResponse.success("Fetched successfully", enrollmentService.findById(id).orElse(null));
     }
 
     @PostMapping
-    public ApiResponse<EnrollmentDto> create(@RequestBody EnrollmentDto enrollmentDto) {
-        return ApiResponse.success("Created successfully", enrollmentService.create(enrollmentDto));
+    public ApiResponse<EnrollmentResponse> create(@RequestBody EnrollmentCreateRequest request) {
+        return ApiResponse.success("Created successfully", enrollmentService.create(request));
     }
 
     @PutMapping("/{id}")
-    public ApiResponse<EnrollmentDto> update(@PathVariable Long id, @RequestBody EnrollmentDto enrollmentDto) {
-        return ApiResponse.success("Updated successfully", enrollmentService.update(id, enrollmentDto));
+    public ApiResponse<EnrollmentResponse> update(@PathVariable Integer id,
+            @RequestBody EnrollmentUpdateRequest request) {
+        return ApiResponse.success("Updated successfully", enrollmentService.update(id, request));
     }
 
     @DeleteMapping("/{id}")
-    public ApiResponse<Void> delete(@PathVariable Long id) {
+    public ApiResponse<Void> delete(@PathVariable Integer id) {
         enrollmentService.delete(id);
         return ApiResponse.success("Deleted successfully", null);
     }

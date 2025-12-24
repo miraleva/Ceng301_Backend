@@ -1,13 +1,16 @@
 package com.miraleva.ceng301.service.impl;
 
-import com.miraleva.ceng301.dto.EnrollmentDto;
+import com.miraleva.ceng301.dto.EnrollmentResponse;
+import com.miraleva.ceng301.dto.EnrollmentCreateRequest;
+import com.miraleva.ceng301.dto.EnrollmentUpdateRequest;
+import com.miraleva.ceng301.dto.mapper.EnrollmentMapper;
 import com.miraleva.ceng301.repository.EnrollmentRepository;
 import com.miraleva.ceng301.service.EnrollmentService;
 import org.springframework.stereotype.Service;
 
-import java.util.Collections;
 import java.util.List;
 import java.util.Optional;
+import java.util.stream.Collectors;
 
 @Service
 public class EnrollmentServiceImpl implements EnrollmentService {
@@ -19,27 +22,30 @@ public class EnrollmentServiceImpl implements EnrollmentService {
     }
 
     @Override
-    public List<EnrollmentDto> findAll() {
-        return Collections.emptyList();
+    public List<EnrollmentResponse> findAll() {
+        return enrollmentRepository.findAll().stream()
+                .map(EnrollmentMapper::toResponse)
+                .collect(Collectors.toList());
     }
 
     @Override
-    public Optional<EnrollmentDto> findById(Long id) {
-        return Optional.empty();
+    public Optional<EnrollmentResponse> findById(Integer id) {
+        return enrollmentRepository.findById(id)
+                .map(EnrollmentMapper::toResponse);
     }
 
     @Override
-    public EnrollmentDto create(EnrollmentDto enrollmentDto) {
+    public EnrollmentResponse create(EnrollmentCreateRequest request) {
         throw new UnsupportedOperationException("Not implemented yet");
     }
 
     @Override
-    public EnrollmentDto update(Long id, EnrollmentDto enrollmentDto) {
+    public EnrollmentResponse update(Integer id, EnrollmentUpdateRequest request) {
         throw new UnsupportedOperationException("Not implemented yet");
     }
 
     @Override
-    public void delete(Long id) {
+    public void delete(Integer id) {
         throw new UnsupportedOperationException("Not implemented yet");
     }
 }

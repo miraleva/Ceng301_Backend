@@ -1,41 +1,13 @@
-package com.miraleva.ceng301.entity;
+package com.miraleva.ceng301.dto;
 
-import jakarta.persistence.*;
-
-@Entity
-@Table(name = "trainer")
-public class TrainerEntity {
-
-    @Id
-    @GeneratedValue(strategy = GenerationType.IDENTITY)
-    @Column(name = "trainer_id")
-    private Integer trainerId;
-
-    @Column(name = "first_name", nullable = false, length = 40)
+public class TrainerUpdateRequest {
     private String firstName;
-
-    @Column(name = "last_name", nullable = false, length = 40)
     private String lastName;
-
-    @Column(name = "phone", nullable = false, length = 20)
     private String phone;
-
-    @Column(name = "email", unique = true, length = 60)
     private String email;
-
-    @Column(name = "specialization", length = 50)
     private String specialization;
 
     // Getters and Setters
-
-    public Integer getTrainerId() {
-        return trainerId;
-    }
-
-    public void setTrainerId(Integer trainerId) {
-        this.trainerId = trainerId;
-    }
-
     public String getFirstName() {
         return firstName;
     }

@@ -1,13 +1,16 @@
 package com.miraleva.ceng301.service.impl;
 
-import com.miraleva.ceng301.dto.MembershipDto;
+import com.miraleva.ceng301.dto.MembershipResponse;
+import com.miraleva.ceng301.dto.MembershipCreateRequest;
+import com.miraleva.ceng301.dto.MembershipUpdateRequest;
+import com.miraleva.ceng301.dto.mapper.MembershipMapper;
 import com.miraleva.ceng301.repository.MembershipRepository;
 import com.miraleva.ceng301.service.MembershipService;
 import org.springframework.stereotype.Service;
 
-import java.util.Collections;
 import java.util.List;
 import java.util.Optional;
+import java.util.stream.Collectors;
 
 @Service
 public class MembershipServiceImpl implements MembershipService {
@@ -19,27 +22,30 @@ public class MembershipServiceImpl implements MembershipService {
     }
 
     @Override
-    public List<MembershipDto> findAll() {
-        return Collections.emptyList();
+    public List<MembershipResponse> findAll() {
+        return membershipRepository.findAll().stream()
+                .map(MembershipMapper::toResponse)
+                .collect(Collectors.toList());
     }
 
     @Override
-    public Optional<MembershipDto> findById(Long id) {
-        return Optional.empty();
+    public Optional<MembershipResponse> findById(Integer id) {
+        return membershipRepository.findById(id)
+                .map(MembershipMapper::toResponse);
     }
 
     @Override
-    public MembershipDto create(MembershipDto membershipDto) {
+    public MembershipResponse create(MembershipCreateRequest request) {
         throw new UnsupportedOperationException("Not implemented yet");
     }
 
     @Override
-    public MembershipDto update(Long id, MembershipDto membershipDto) {
+    public MembershipResponse update(Integer id, MembershipUpdateRequest request) {
         throw new UnsupportedOperationException("Not implemented yet");
     }
 
     @Override
-    public void delete(Long id) {
+    public void delete(Integer id) {
         throw new UnsupportedOperationException("Not implemented yet");
     }
 }

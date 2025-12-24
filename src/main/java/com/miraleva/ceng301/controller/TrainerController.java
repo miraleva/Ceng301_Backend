@@ -1,7 +1,9 @@
 package com.miraleva.ceng301.controller;
 
 import com.miraleva.ceng301.dto.ApiResponse;
-import com.miraleva.ceng301.dto.TrainerDto;
+import com.miraleva.ceng301.dto.TrainerResponse;
+import com.miraleva.ceng301.dto.TrainerCreateRequest;
+import com.miraleva.ceng301.dto.TrainerUpdateRequest;
 import com.miraleva.ceng301.service.TrainerService;
 import org.springframework.web.bind.annotation.*;
 
@@ -18,27 +20,27 @@ public class TrainerController {
     }
 
     @GetMapping
-    public ApiResponse<List<TrainerDto>> getAll() {
+    public ApiResponse<List<TrainerResponse>> getAll() {
         return ApiResponse.success("Fetched successfully", trainerService.findAll());
     }
 
     @GetMapping("/{id}")
-    public ApiResponse<TrainerDto> getById(@PathVariable Long id) {
+    public ApiResponse<TrainerResponse> getById(@PathVariable Integer id) {
         return ApiResponse.success("Fetched successfully", trainerService.findById(id).orElse(null));
     }
 
     @PostMapping
-    public ApiResponse<TrainerDto> create(@RequestBody TrainerDto trainerDto) {
-        return ApiResponse.success("Created successfully", trainerService.create(trainerDto));
+    public ApiResponse<TrainerResponse> create(@RequestBody TrainerCreateRequest request) {
+        return ApiResponse.success("Created successfully", trainerService.create(request));
     }
 
     @PutMapping("/{id}")
-    public ApiResponse<TrainerDto> update(@PathVariable Long id, @RequestBody TrainerDto trainerDto) {
-        return ApiResponse.success("Updated successfully", trainerService.update(id, trainerDto));
+    public ApiResponse<TrainerResponse> update(@PathVariable Integer id, @RequestBody TrainerUpdateRequest request) {
+        return ApiResponse.success("Updated successfully", trainerService.update(id, request));
     }
 
     @DeleteMapping("/{id}")
-    public ApiResponse<Void> delete(@PathVariable Long id) {
+    public ApiResponse<Void> delete(@PathVariable Integer id) {
         trainerService.delete(id);
         return ApiResponse.success("Deleted successfully", null);
     }
