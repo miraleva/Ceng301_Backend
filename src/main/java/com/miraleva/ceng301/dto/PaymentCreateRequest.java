@@ -6,6 +6,7 @@ public class PaymentCreateRequest {
     private BigDecimal amount;
     private String paymentMethod;
     private Integer memberId;
+    private java.time.LocalDate paymentDate;
 
     // Getters and Setters
     public BigDecimal getAmount() {
@@ -30,5 +31,13 @@ public class PaymentCreateRequest {
 
     public void setMemberId(Integer memberId) {
         this.memberId = memberId;
+    }
+
+    public java.time.LocalDate getPaymentDate() {
+        return paymentDate;
+    }
+
+    public void setPaymentDate(java.time.LocalDate paymentDate) {
+        this.paymentDate = paymentDate;
     }
 }

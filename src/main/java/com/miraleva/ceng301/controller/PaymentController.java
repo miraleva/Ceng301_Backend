@@ -29,7 +29,7 @@ public class PaymentController {
         return ApiResponse.success("Fetched successfully", paymentService.findById(id).orElse(null));
     }
 
-    @PostMapping
+    @PostMapping("/create")
     public ApiResponse<PaymentResponse> create(@RequestBody PaymentCreateRequest request) {
         return ApiResponse.success("Created successfully", paymentService.create(request));
     }
