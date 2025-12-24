@@ -101,10 +101,6 @@ public class MemberServiceImpl implements MemberService {
         try {
             memberRepository.deleteById(id);
         } catch (org.springframework.dao.DataIntegrityViolationException e) {
-            // Throwing DataIntegrityViolationException to be caught by
-            // GlobalExceptionHandler
-            // We ensure it maps to 409 Conflict via the "dependent records" keyword check
-            // or FK check
             throw new org.springframework.dao.DataIntegrityViolationException(
                     "Cannot delete member: dependent records exist", e);
         }

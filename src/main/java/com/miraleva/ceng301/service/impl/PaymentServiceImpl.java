@@ -75,8 +75,6 @@ public class PaymentServiceImpl implements PaymentService {
         if (request.getPaymentMethod() != null) {
             payment.setPaymentMethod(request.getPaymentMethod());
         }
-        // Assuming update request doesn't have paymentDate for now or add if needed.
-        // If PaymentUpdateRequest has paymentDate, verify via DTO.
 
         PaymentEntity saved = paymentRepository.save(payment);
         return PaymentMapper.toResponse(saved);

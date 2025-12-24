@@ -73,18 +73,6 @@ public class ClassServiceImpl implements ClassService {
         if (request.getClassName() != null)
             entity.setClassName(request.getClassName());
 
-        // Handle String to LocalDate conversion for update if needed,
-        // OR better: Update ClassUpdateRequest to use LocalDate (Preferred).
-        // Since ClassUpdateRequest uses String currently, we need to parse it.
-        // But for consistency with CreateRequest, we SHOULD update ClassUpdateRequest
-        // to LocalDate.
-        // Assuming user will follow up with DTO fix, implementing parsing for now as
-        // fail-safe or LocalDate if updated.
-        // Waiting for user instruction on changing ClassUpdateRequest?
-        // User said "schedule is LocalDate". I should fix DTO or parse.
-        // The file I saw uses String schedule. I'll parse it here to avoid blocking
-        // step D.
-
         if (request.getSchedule() != null) {
             entity.setSchedule(LocalDate.parse(request.getSchedule()));
         }

@@ -79,7 +79,6 @@ public class EnrollmentServiceImpl implements EnrollmentService {
         EnrollmentEntity enrollment = enrollmentRepository.findById(id)
                 .orElseThrow(() -> new IllegalArgumentException("Enrollment not found: " + id));
 
-        // Only update fields you allow
         if (request.getEnrollmentDate() != null) {
             enrollment.setEnrollmentDate(request.getEnrollmentDate());
         }

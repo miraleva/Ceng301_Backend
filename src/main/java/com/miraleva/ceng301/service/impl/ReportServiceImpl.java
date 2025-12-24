@@ -146,8 +146,6 @@ public class ReportServiceImpl implements ReportService {
     @Override
     public MemberPaymentSummaryReport getMemberPaymentSummary(Integer memberId) {
 
-        // The function returns snake_case columns, we need to alias them for
-        // BeanPropertyRowMapper
         String sqlAliased = """
                     SELECT
                         m.member_id AS memberId,

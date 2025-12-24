@@ -6,7 +6,6 @@ public class ClassCreateRequest {
 
     private String className;
 
-    // ✅ FIX: String → LocalDate
     private LocalDate schedule;
 
     private Integer capacity;

@@ -41,7 +41,7 @@ public class MembershipServiceImpl implements MembershipService {
             throw new IllegalArgumentException("Type, Price, and Duration are required");
         }
 
-        // Enforce valid types if required by requirements, though DB check also exists
+        // Enforce valid types if required by requirements though DB check also exists
         if (!List.of("Gold", "Silver", "Platinum").contains(request.getType())) {
             throw new IllegalArgumentException("Invalid membership type. Allowed: Gold, Silver, Platinum");
         }
