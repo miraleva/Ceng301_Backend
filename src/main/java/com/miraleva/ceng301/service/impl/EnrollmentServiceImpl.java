@@ -66,8 +66,7 @@ public class EnrollmentServiceImpl implements EnrollmentService {
         enrollment.setMember(member);
         enrollment.setGymClass(gymClass);
 
-        // If client didn't send enrollmentDate, default to today (optional, but
-        // helpful)
+        // If client didn't send enrollmentDate default to today
         LocalDate date = (request.getEnrollmentDate() != null) ? request.getEnrollmentDate() : LocalDate.now();
         enrollment.setEnrollmentDate(date);
 
@@ -80,7 +79,7 @@ public class EnrollmentServiceImpl implements EnrollmentService {
         EnrollmentEntity enrollment = enrollmentRepository.findById(id)
                 .orElseThrow(() -> new IllegalArgumentException("Enrollment not found: " + id));
 
-        // Only update fields you allow (commonly only enrollmentDate)
+        // Only update fields you allow
         if (request.getEnrollmentDate() != null) {
             enrollment.setEnrollmentDate(request.getEnrollmentDate());
         }

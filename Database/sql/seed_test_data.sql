@@ -1,6 +1,5 @@
 -- =========================================================================================
 -- Seed Data Script for Gym Management System Verification
--- Course: CENG301
 -- HOW TO RUN:
 -- 1. Ensure the PostgreSQL schema (tables) are already created.
 -- 2. Execute this script using psql or a database tool: psql -d gym_db -f seed_test_data.sql

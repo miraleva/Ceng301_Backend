@@ -56,7 +56,6 @@ public class PaymentServiceImpl implements PaymentService {
         PaymentEntity payment = new PaymentEntity();
         payment.setAmount(request.getAmount());
         payment.setPaymentMethod(request.getPaymentMethod());
-        // Default to now if null
         payment.setPaymentDate(request.getPaymentDate() != null ? request.getPaymentDate() : LocalDate.now());
         payment.setMember(member);
 
@@ -69,14 +68,14 @@ public class PaymentServiceImpl implements PaymentService {
         PaymentEntity payment = paymentRepository.findById(id)
                 .orElseThrow(() -> new IllegalArgumentException("Payment not found: " + id));
 
-        // Basic update logic - in real app might need more validation
+        // Basic update logic
         if (request.getAmount() != null) {
             payment.setAmount(request.getAmount());
         }
         if (request.getPaymentMethod() != null) {
             payment.setPaymentMethod(request.getPaymentMethod());
         }
-        // Assuming update request doesn't have paymentDate for now, or add if needed.
+        // Assuming update request doesn't have paymentDate for now or add if needed.
         // If PaymentUpdateRequest has paymentDate, verify via DTO.
 
         PaymentEntity saved = paymentRepository.save(payment);
