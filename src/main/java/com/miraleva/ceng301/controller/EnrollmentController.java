@@ -29,7 +29,7 @@ public class EnrollmentController {
         return ApiResponse.success("Fetched successfully", enrollmentService.findById(id).orElse(null));
     }
 
-    @PostMapping
+    @PostMapping("/create")
     public ApiResponse<EnrollmentResponse> create(@RequestBody EnrollmentCreateRequest request) {
         return ApiResponse.success("Created successfully", enrollmentService.create(request));
     }

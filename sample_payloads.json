@@ -1,0 +1,44 @@
+{
+    "notes": "Use these payloads to verify your API endpoints. Ensure headers are: Content-Type: application/json",
+    "payloads": {
+        "POST /members/create": {
+            "first_name": "New",
+            "last_name": "Member",
+            "gender": "O",
+            "date_of_birth": "1995-06-15",
+            "registration_date": "2025-04-01",
+            "membership_id": 1,
+            "phone": "555-1234",
+            "email": "new.member@example.com"
+        },
+        "POST /members/update": {
+            "member_id": 1,
+            "first_name": "John",
+            "last_name": "Doe Updated",
+            "gender": "M",
+            "date_of_birth": "1990-05-15",
+            "registration_date": "2025-01-10",
+            "membership_id": 2,
+            "phone": "555-9999",
+            "email": "john.updated@example.com"
+        },
+        "POST /classes/create": {
+            "class_name": "Advanced HIIT",
+            "schedule": "2025-12-05",
+            "capacity": 25,
+            "trainer_id": 2
+        },
+        "POST /enrollments/create": {
+            "member_id": 3,
+            "class_id": 2,
+            "enrollment_date": "2025-12-05",
+            "_note": "If member_id+class_id combo exists, API should return 409 Conflict or handle gracefully."
+        },
+        "POST /payments/create": {
+            "member_id": 1,
+            "amount": 150.00,
+            "payment_date": "2025-12-01",
+            "payment_method": "Bank Transfer"
+        }
+    }
+}
