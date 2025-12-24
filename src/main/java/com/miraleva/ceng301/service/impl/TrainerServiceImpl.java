@@ -6,6 +6,7 @@ import com.miraleva.ceng301.dto.TrainerUpdateRequest;
 import com.miraleva.ceng301.dto.mapper.TrainerMapper;
 import com.miraleva.ceng301.repository.TrainerRepository;
 import com.miraleva.ceng301.service.TrainerService;
+import com.miraleva.ceng301.entity.TrainerEntity;
 import org.springframework.stereotype.Service;
 
 import java.util.List;
@@ -36,16 +37,49 @@ public class TrainerServiceImpl implements TrainerService {
 
     @Override
     public TrainerResponse create(TrainerCreateRequest request) {
-        throw new UnsupportedOperationException("Not implemented yet");
+        if (request.getFirstName() == null || request.getLastName() == null || request.getPhone() == null) {
+            throw new IllegalArgumentException("First Name, Last Name, and Phone are required");
+        }
+
+        TrainerEntity entity = new TrainerEntity();
+        entity.setFirstName(request.getFirstName());
+        entity.setLastName(request.getLastName());
+        entity.setPhone(request.getPhone());
+        entity.setEmail(request.getEmail());
+        entity.setSpecialization(request.getSpecialization());
+
+        return TrainerMapper.toResponse(trainerRepository.save(entity));
     }
 
     @Override
     public TrainerResponse update(Integer id, TrainerUpdateRequest request) {
-        throw new UnsupportedOperationException("Not implemented yet");
+        TrainerEntity entity = trainerRepository.findById(id)
+                .orElseThrow(() -> new IllegalArgumentException("Trainer not found: " + id));
+
+        if (request.getFirstName() != null)
+            entity.setFirstName(request.getFirstName());
+        if (request.getLastName() != null)
+            entity.setLastName(request.getLastName());
+        if (request.getPhone() != null)
+            entity.setPhone(request.getPhone());
+        if (request.getEmail() != null)
+            entity.setEmail(request.getEmail());
+        if (request.getSpecialization() != null)
+            entity.setSpecialization(request.getSpecialization());
+
+        return TrainerMapper.toResponse(trainerRepository.save(entity));
     }
 
     @Override
     public void delete(Integer id) {
-        throw new UnsupportedOperationException("Not implemented yet");
+        if (!trainerRepository.existsById(id)) {
+            throw new IllegalArgumentException("Trainer not found: " + id);
+        }
+        try {
+            trainerRepository.deleteById(id);
+        } catch (org.springframework.dao.DataIntegrityViolationException e) {
+            throw new org.springframework.dao.DataIntegrityViolationException(
+                    "Cannot delete trainer: they are assigned to existing classes", e);
+        }
     }
 }
