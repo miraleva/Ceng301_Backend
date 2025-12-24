@@ -7,12 +7,20 @@ public class ClassMapper {
     public static ClassResponse toResponse(ClassEntity entity) {
         if (entity == null)
             return null;
-        Integer trainerId = (entity.getTrainer() != null) ? entity.getTrainer().getTrainerId() : null;
+        Integer trainerId = null;
+        String trainerName = null;
+
+        if (entity.getTrainer() != null) {
+            trainerId = entity.getTrainer().getTrainerId();
+            trainerName = entity.getTrainer().getFirstName() + " " + entity.getTrainer().getLastName();
+        }
 
         return new ClassResponse(
                 entity.getClassId(),
                 entity.getClassName(),
                 entity.getSchedule(),
-                trainerId);
+                entity.getCapacity(),
+                trainerId,
+                trainerName);
     }
 }

@@ -3,6 +3,7 @@ package com.miraleva.ceng301.dto;
 public class ClassUpdateRequest {
     private String className;
     private String schedule;
+    private Integer capacity;
     private Integer trainerId;
 
     // Getters and Setters
@@ -20,6 +21,14 @@ public class ClassUpdateRequest {
 
     public void setSchedule(String schedule) {
         this.schedule = schedule;
+    }
+
+    public Integer getCapacity() {
+        return capacity;
+    }
+
+    public void setCapacity(Integer capacity) {
+        this.capacity = capacity;
     }
 
     public Integer getTrainerId() {

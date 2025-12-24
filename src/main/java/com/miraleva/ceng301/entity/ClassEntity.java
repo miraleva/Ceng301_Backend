@@ -1,5 +1,7 @@
 package com.miraleva.ceng301.entity;
 
+import java.time.LocalDate;
+
 import jakarta.persistence.*;
 
 @Entity
@@ -14,8 +16,11 @@ public class ClassEntity {
     @Column(name = "class_name", nullable = false, length = 50)
     private String className;
 
-    @Column(name = "schedule", length = 30)
-    private String schedule;
+    @Column(name = "schedule")
+    private LocalDate schedule;
+
+    @Column(name = "capacity")
+    private Integer capacity;
 
     @ManyToOne(fetch = FetchType.LAZY)
     @JoinColumn(name = "trainer_id", nullable = false)
@@ -39,12 +44,20 @@ public class ClassEntity {
         this.className = className;
     }
 
-    public String getSchedule() {
+    public LocalDate getSchedule() {
         return schedule;
     }
 
-    public void setSchedule(String schedule) {
+    public void setSchedule(LocalDate schedule) {
         this.schedule = schedule;
+    }
+
+    public Integer getCapacity() {
+        return capacity;
+    }
+
+    public void setCapacity(Integer capacity) {
+        this.capacity = capacity;
     }
 
     public TrainerEntity getTrainer() {

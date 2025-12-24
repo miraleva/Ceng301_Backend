@@ -1,31 +1,34 @@
 package com.miraleva.ceng301.exception;
 
 import com.miraleva.ceng301.dto.ApiResponse;
+import org.springframework.dao.DataIntegrityViolationException;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
-import org.springframework.validation.FieldError;
-import org.springframework.web.bind.MethodArgumentNotValidException;
 import org.springframework.web.bind.annotation.ExceptionHandler;
 import org.springframework.web.bind.annotation.RestControllerAdvice;
-
-import java.util.HashMap;
-import java.util.Map;
 
 @RestControllerAdvice
 public class GlobalExceptionHandler {
 
-    @ExceptionHandler(MethodArgumentNotValidException.class)
-    public ResponseEntity<ApiResponse<Map<String, String>>> handleValidationExceptions(
-            MethodArgumentNotValidException ex) {
-        Map<String, String> errors = new HashMap<>();
-        ex.getBindingResult().getFieldErrors().forEach((error) -> {
-            errors.put(error.getField(), error.getDefaultMessage());
-        });
-        return new ResponseEntity<>(ApiResponse.failure("Validation failed", errors), HttpStatus.BAD_REQUEST);
+    @ExceptionHandler(DataIntegrityViolationException.class)
+    public ResponseEntity<ApiResponse<Void>> handleDataIntegrityViolation(DataIntegrityViolationException ex) {
+        String message = ex.getMostSpecificCause().getMessage();
+        if (message != null && message.contains("uq_enrollment")) {
+            return new ResponseEntity<>(
+                    ApiResponse.failure("Duplicate enrollment: Member is already enrolled in this class"),
+                    HttpStatus.CONFLICT);
+        }
+        return new ResponseEntity<>(ApiResponse.failure("Database error: " + message), HttpStatus.BAD_REQUEST);
+    }
+
+    @ExceptionHandler(UnsupportedOperationException.class)
+    public ResponseEntity<ApiResponse<Void>> handleUnsupportedOperation(UnsupportedOperationException ex) {
+        return new ResponseEntity<>(ApiResponse.failure(ex.getMessage()), HttpStatus.NOT_IMPLEMENTED);
     }
 
     @ExceptionHandler(Exception.class)
-    public ResponseEntity<ApiResponse<Void>> handleGlobalException(Exception ex) {
-        return new ResponseEntity<>(ApiResponse.failure("Internal server error"), HttpStatus.INTERNAL_SERVER_ERROR);
+    public ResponseEntity<ApiResponse<Void>> handleGenericException(Exception ex) {
+        return new ResponseEntity<>(ApiResponse.failure("Internal Server Error: " + ex.getMessage()),
+                HttpStatus.INTERNAL_SERVER_ERROR);
     }
 }

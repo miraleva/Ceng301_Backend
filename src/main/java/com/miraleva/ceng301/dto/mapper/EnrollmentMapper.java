@@ -7,13 +7,27 @@ public class EnrollmentMapper {
     public static EnrollmentResponse toResponse(EnrollmentEntity entity) {
         if (entity == null)
             return null;
-        Integer memberId = (entity.getMember() != null) ? entity.getMember().getMemberId() : null;
-        Integer classId = (entity.getGymClass() != null) ? entity.getGymClass().getClassId() : null;
+        Integer memberId = null;
+        String memberName = null;
+        Integer classId = null;
+        String className = null;
+
+        if (entity.getMember() != null) {
+            memberId = entity.getMember().getMemberId();
+            memberName = entity.getMember().getFirstName() + " " + entity.getMember().getLastName();
+        }
+
+        if (entity.getGymClass() != null) {
+            classId = entity.getGymClass().getClassId();
+            className = entity.getGymClass().getClassName();
+        }
 
         return new EnrollmentResponse(
                 entity.getEnrollmentId(),
                 memberId,
+                memberName,
                 classId,
+                className,
                 entity.getEnrollmentDate());
     }
 }

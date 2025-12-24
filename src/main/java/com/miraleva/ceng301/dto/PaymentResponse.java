@@ -9,14 +9,16 @@ public class PaymentResponse {
     private BigDecimal amount;
     private String paymentMethod;
     private Integer memberId;
+    private String memberName;
 
     public PaymentResponse(Integer paymentId, LocalDate paymentDate, BigDecimal amount, String paymentMethod,
-            Integer memberId) {
+            Integer memberId, String memberName) {
         this.paymentId = paymentId;
         this.paymentDate = paymentDate;
         this.amount = amount;
         this.paymentMethod = paymentMethod;
         this.memberId = memberId;
+        this.memberName = memberName;
     }
 
     // Getters
@@ -38,5 +40,9 @@ public class PaymentResponse {
 
     public Integer getMemberId() {
         return memberId;
+    }
+
+    public String getMemberName() {
+        return memberName;
     }
 }

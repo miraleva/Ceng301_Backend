@@ -7,13 +7,20 @@ public class PaymentMapper {
     public static PaymentResponse toResponse(PaymentEntity entity) {
         if (entity == null)
             return null;
-        Integer memberId = (entity.getMember() != null) ? entity.getMember().getMemberId() : null;
+        Integer memberId = null;
+        String memberName = null;
+
+        if (entity.getMember() != null) {
+            memberId = entity.getMember().getMemberId();
+            memberName = entity.getMember().getFirstName() + " " + entity.getMember().getLastName();
+        }
 
         return new PaymentResponse(
                 entity.getPaymentId(),
                 entity.getPaymentDate(),
                 entity.getAmount(),
                 entity.getPaymentMethod(),
-                memberId);
+                memberId,
+                memberName);
     }
 }
