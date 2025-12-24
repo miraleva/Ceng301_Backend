@@ -150,12 +150,19 @@ public class ReportServiceImpl implements ReportService {
         // BeanPropertyRowMapper
         String sqlAliased = """
                     SELECT
-                        member_id AS memberId,
-                        full_name AS fullName,
-                        total_paid AS totalPaid,
-                        payment_count AS paymentCount,
-                        last_payment_date AS lastPaymentDate
-                    FROM get_member_payment_summary(:memberId)
+                        m.member_id AS memberId,
+                        (m.first_name || ' ' || m.last_name) AS fullName,
+                        COALESCE(SUM(p.amount), 0) AS totalPaid,
+                        COUNT(p.payment_id) AS paymentCount,
+                        MAX(p.payment_date) AS lastPaymentDate
+                    FROM
+                        member m
+                    LEFT JOIN
+                        payment p ON p.member_id = m.member_id
+                    WHERE
+                        m.member_id = :memberId
+                    GROUP BY
+                        m.member_id, m.first_name, m.last_name
                 """;
 
         MapSqlParameterSource params = new MapSqlParameterSource();
