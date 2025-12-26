@@ -204,3 +204,17 @@ http://localhost:3000
 The frontend communicates directly with the Spring Boot backend at:
 http://localhost:8080
 
+This URL must match the backend configuration in:
+
+src/main/resources/application.yml
+
+spring:
+  datasource:
+    url: jdbc:postgresql://localhost:5432/gym_db
+
+and the backend base URL used by the frontend:
+
+frontend/server.js:
+const API_BASE_URL = 'http://localhost:8080/api';
+
+
