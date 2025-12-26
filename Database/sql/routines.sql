@@ -11,8 +11,7 @@ RETURNS TABLE (
     total_paid DECIMAL(10,2),
     payment_count BIGINT,
     last_payment_date DATE
-) 
-LANGUAGE plpgsql
+)
 AS $$
 BEGIN
     RETURN QUERY
@@ -31,4 +30,4 @@ BEGIN
     GROUP BY 
         m.member_id, m.first_name, m.last_name;
 END;
-$$;
+$$ LANGUAGE plpgsql;

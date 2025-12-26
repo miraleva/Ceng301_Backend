@@ -168,3 +168,22 @@ All endpoints return a unified response wrapper:
 ## Environment & Port
 *   **Default Port**: 8080
 *   **Base URL**: `http://localhost:8080`
+
+## How to run backend
+
+1. Create PostgreSQL database (or use Neon)
+2. Run SQL files in this order:
+   - Schema.sql
+   - routines.sql
+   - indexes.sql
+   - reports.sql
+   - seed_test_data.sql
+
+3. Set DB connection in:
+src/main/resources/application.yml
+
+4. Run:
+mvn spring-boot:run
+
+Backend runs at:
+http://localhost:8080

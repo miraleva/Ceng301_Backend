@@ -3,9 +3,9 @@ server:
 
 spring:
   datasource:
-    url: jdbc:postgresql://localhost:5432/gym_db
-    username: postgres
-    password: Password_123
+    url: jdbc:postgresql://ep-sweet-salad-ago9omdj-pooler.c-2.eu-central-1.aws.neon.tech/neondb?sslmode=require
+    username: neondb_owner
+    password: npg_Tlx5g2VmuiXB
   jpa:
     show-sql: true
     hibernate:
