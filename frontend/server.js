@@ -43,18 +43,29 @@ const mapToSnakeCase = (arr) => Array.isArray(arr) ? arr.map(toSnakeCase) : [];
  * @returns {Promise<any>} Parsed data from the API response
  */
 async function apiRequest(method, endpoint, body = null) {
+    const url = `${API_BASE_URL}${endpoint}`;
+
+    // ✅ KANIT LOG (hocaya göstermek için)
+    console.log(`[API] -> ${method} ${url}`);
+    if (body) console.log(`[API] body:`, body);
+
     const options = { method, headers: { 'Content-Type': 'application/json' } };
     if (body) {
         options.body = JSON.stringify(body);
     }
-    const response = await fetch(`${API_BASE_URL}${endpoint}`, options);
+
+    const response = await fetch(url, options);
+
+    // ✅ KANIT LOG
+    console.log(`[API] <- ${method} ${url} status=${response.status}`);
+
     let json;
     try {
         json = await response.json();
     } catch (err) {
         json = { success: false, message: 'Invalid JSON response' };
     }
-    // If the HTTP status is not in the 2xx range or the API signals failure, throw an error.
+
     if (!response.ok || !json.success) {
         const errorMessage = (json && json.message) || `Request failed with status ${response.status}`;
         const error = new Error(errorMessage);
@@ -64,6 +75,7 @@ async function apiRequest(method, endpoint, body = null) {
     }
     return json.data;
 }
+
 
 // View engine setup
 app.set('view engine', 'ejs');
@@ -548,7 +560,11 @@ app.post('/trainers/update', async (req, res) => {
 });
 
 app.post('/trainers/delete', async (req, res) => {
-    const { trainer_id } = req.body;
+    console.log("[UI] POST /trainers/delete payload:", req.body);
+
+    const trainer_id = req.body.trainer_id || req.body.trainerId || req.body.id;
+    console.log("[UI] resolved trainer_id =", trainer_id);
+
     if (USE_API) {
         try {
             await apiRequest('DELETE', `/trainers/${trainer_id}`);
@@ -566,6 +582,7 @@ app.post('/trainers/delete', async (req, res) => {
         return res.redirect('/trainers?success=Deleted Trainer Successfully');
     }
 });
+
 
 // Classes
 app.get('/classes', async (req, res) => {
