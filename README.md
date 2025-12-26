@@ -187,3 +187,20 @@ mvn spring-boot:run
 
 Backend runs at:
 http://localhost:8080
+
+## Frontend (Web UI)
+
+The project includes a full web-based frontend built with Express + EJS.
+
+To run the UI:
+
+```bash
+cd frontend
+npm install
+node server.js
+Then open:
+http://localhost:3000
+
+The frontend communicates directly with the Spring Boot backend at:
+http://localhost:8080
+
